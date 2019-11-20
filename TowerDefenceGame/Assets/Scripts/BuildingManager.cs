@@ -6,8 +6,10 @@ public class BuildingManager : MonoBehaviour
 {
     public GameObject selectedTower;
 
-    public void SelectTowerType(GameObject prefab)//a way to identify what tower is selected
+    //a way to identify what tower is selected
+    public void SelectTowerType(GameObject prefab)
     {
-        selectedTower = prefab;//the selected tower is = to the prefab selected
+        //the selected tower is = to the prefab selected
+        selectedTower = prefab;
     }
 }

@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class TowerSpot : MonoBehaviour
 {
-    private void OnMouseUp()//detecting if tower spot is clicked
+    //detecting if tower spot is clicked
+    private void OnMouseUp()
     {
         BuildingManager bm = GameObject.FindObjectOfType<BuildingManager>();
-        if(bm.selectedTower != null)//if there is a selected tower
+        //if there is a selected tower
+        if (bm.selectedTower != null)
         {
             ScoreManager sm = GameObject.FindObjectOfType<ScoreManager>();
-            if(sm.money < bm.selectedTower.GetComponent<Tower>().cost)//checking if enough money
+            //checking if enough money
+            if (sm.money < bm.selectedTower.GetComponent<Tower>().cost)
             {
                 Debug.Log("Not enough money");
                 return;
             }
-
-            sm.money -= bm.selectedTower.GetComponent<Tower>().cost;//minus the money
-
-            Instantiate(bm.selectedTower, transform.parent.position, transform.parent.rotation);//refers to selected tower and locates it on the spot
-            Destroy(transform.parent.gameObject);//destroys the spot
+            //minus the money
+            sm.money -= bm.selectedTower.GetComponent<Tower>().cost;
+            //refers to selected tower and locates it on the spot
+            Instantiate(bm.selectedTower, transform.parent.position, transform.parent.rotation);
+            //destroys the spot
+            Destroy(transform.parent.gameObject);
         }
     }
 }

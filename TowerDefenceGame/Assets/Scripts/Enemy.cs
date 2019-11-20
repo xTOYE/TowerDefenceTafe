@@ -22,18 +22,28 @@ public class Enemy : MonoBehaviour
 
     void GetNextPathNode()
     {
-        targetPathNode = pathGo.transform.GetChild(pathNodeIndex);
-        pathNodeIndex++;//moving to next node
+        if (pathNodeIndex < pathGo.transform.childCount)
+        {
+            targetPathNode = pathGo.transform.GetChild(pathNodeIndex);
+            pathNodeIndex++;//moving to next node
+        }
+        else
+        {
+            targetPathNode = null;
+            ReachedGoal();
+        }
     }
 
     void Update()
     {
         if (targetPathNode == null)
         {
-            GetNextPathNode();//finding where to go next
+            //finding where to go next
+            GetNextPathNode();
             if (targetPathNode == null)
-            {
-                //no more path
+            {//no more path
+                ReachedGoal();
+                return;
             }
         }
 
@@ -50,23 +60,24 @@ public class Enemy : MonoBehaviour
         {
             //move towards node
             transform.Translate(dir.normalized * distThisFrame, Space.World);
-            Quaternion targetRotation = Quaternion.LookRotation(dir);//face node
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, Time.deltaTime * 5);//not so snappy
+            //face node
+            Quaternion targetRotation = Quaternion.LookRotation(dir);
+            //not so snappy smoother turn
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, Time.deltaTime * 5);
         }
-
-
     }
 
     void ReachedGoal()
     {
-        GameObject.FindObjectOfType<ScoreManager>().LoseLife();//if enemy reaches goal lose life
+        //if enemy reaches goal lose life
+        GameObject.FindObjectOfType<ScoreManager>().LoseLife();
         Destroy(gameObject);
     }
 
     public void takeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -74,7 +85,8 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        GameObject.FindObjectOfType<ScoreManager>().money += moneyValue;//add money from enemy dieing
+        //add money from enemy dieing
+        GameObject.FindObjectOfType<ScoreManager>().money += moneyValue;
         Destroy(gameObject);
     }
 }

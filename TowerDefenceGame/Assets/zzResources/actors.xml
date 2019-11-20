@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ActorCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Actors>
+    <Actor Name="Player">
+      <PosX>1</PosX>
+      <PosY>1.6</PosY>
+      <PosZ>1</PosZ>
+      <Health>50</Health>
+    </Actor>
+  </Actors>
+</ActorCollection>

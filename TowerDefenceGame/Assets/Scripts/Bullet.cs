@@ -11,22 +11,24 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        if(target == null)//if no target
+        //if no target
+        if (target == null)
         {
-            Destroy(gameObject);//destroy bullet
+            //destroy bullet
+            Destroy(gameObject);
             return;
         }
 
         Vector3 dir = target.position - this.transform.localPosition;
 
         float distThisFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distThisFrame)//tells when it has reched target
+        //tells when it has reched target
+        if (dir.magnitude <= distThisFrame)
         {
             DoBulletHit();
         }
@@ -43,22 +45,26 @@ public class Bullet : MonoBehaviour
     {
         if (radius == 0)
         {
-            target.GetComponent<Enemy>().takeDamage(damage);//bullet hit bullet do  damage
+            //bullet hit bullet do  damage
+            target.GetComponent<Enemy>().takeDamage(damage);
         }
         else
         {
-            Physics.OverlapSphere(transform.position, radius);//tells what we have colided with
+            //tells what we have colided with
+            Collider[] cols = Physics.OverlapSphere(transform.position, radius);
 
-            foreach(Collider c in cols)
+            foreach (Collider c in cols)
             {
-                Enemy e = c.GetComponent<Enemy>();//checking if what it colided with was an enemy
+                //checking if what it colided with was an enemy
+                Enemy e = c.GetComponent<Enemy>();
                 if (e != null)//if it colides
                 {
-                    e.GetComponent<Enemy>().takeDamage(damage);//take damage
+                    //take damage
+                    e.GetComponent<Enemy>().takeDamage(damage);
                 }
             }
         }
-
-        Destroy(gameObject);//when reached target destroy
+        //when reached target destroy
+        Destroy(gameObject);
     }
 }
